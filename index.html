@@ -21,17 +21,32 @@
     <header>
         <div class="container">
             <div class="logo">⚡ Ask Electrical Services</div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#catalog">Catalog</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
-                </ul>
-            </nav>
-            <div class="header-auth">
-                <button class="btn-login">Login</button>
-                <button class="btn-signup">Signup</button>
+            <button
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="mobileMenu"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="mobile-menu" id="mobileMenu">
+                <nav aria-label="Main Navigation">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Catalog</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </nav>
+                <div class="header-auth">
+                    <button class="btn-login">Login</button>
+                    <button class="btn-signup">Signup</button>
+                </div>
             </div>
         </div>
     </header>
@@ -45,7 +60,7 @@
                     <p>Reliable, Safe, and Expert Electrical Solutions for Your Home & Business</p>
                     <a href="#contact" class="btn">Get a Free Quote</a>
                 </div>
-                <img src="images/hero.jpg" alt="Professional Electrician" class="hero-image">
+                <img src="images/hero.svg" alt="Professional Electrician" class="hero-image">
             </div>
         </div>
     </section>
