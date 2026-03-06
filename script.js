@@ -24,6 +24,7 @@ function initializeAllEffects() {
     mobileMenu();
     smoothScrollNavigation();
     animateOnScroll();
+    revealCardsOnScroll();
     cardHoverEffects();
     formAnimations();
     headerScrollEffect();
@@ -132,6 +133,14 @@ function smoothScrollNavigation() {
 // 2. SIMPLIFIED ANIMATIONS (No Parallax)
 // ============================================
 function animateOnScroll() {
+    if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '1';
+            section.style.transform = 'none';
+        });
+        return;
+    }
+
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -158,15 +167,52 @@ function animateOnScroll() {
 }
 
 // ============================================
-// 3. SIMPLIFIED CARD HOVER (No 3D Tilt)
+// 3. CARD REVEAL ON SCROLL
+// ============================================
+function revealCardsOnScroll() {
+    const cards = document.querySelectorAll('.service-card, .portfolio-item');
+    if (!cards.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+        cards.forEach((card) => {
+            card.classList.add('is-visible');
+        });
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries, observerRef) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observerRef.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+    });
+
+    cards.forEach((card, index) => {
+        card.classList.add('reveal-card');
+        card.style.setProperty('--reveal-delay', `${(index % 3) * 90}ms`);
+        observer.observe(card);
+    });
+}
+
+// ============================================
+// 4. CARD HOVER GLOW
 // ============================================
 function cardHoverEffects() {
     const cards = document.querySelectorAll('.service-card, .portfolio-item');
     
     cards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'all 0.4s ease';
+        card.addEventListener('mouseenter', () => {
+            card.classList.add('card-glow');
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.classList.remove('card-glow');
+        });
     });
 }
 
@@ -215,6 +261,8 @@ function formAnimations() {
 // ============================================
 function headerScrollEffect() {
     const header = document.querySelector('header');
+    if (!header) return;
+
     let lastScroll = 0;
     let ticking = false;
     

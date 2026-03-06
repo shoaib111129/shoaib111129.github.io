@@ -179,7 +179,7 @@
         }
 
         .logo::after {
-            content: '⚡ Ask Electrical Services';
+            content: '⚡ A-sk Tech Services';
             position: absolute;
             top: 0;
             left: 0;
@@ -431,19 +431,22 @@
         }
 
         .hero-image {
-            border-radius: 18px;
+            border-radius: 20px;
             width: 100%;
             height: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            box-shadow: 0 16px 38px rgba(0, 0, 0, 0.35), 0 10px 26px rgba(0, 123, 255, 0.22);
             transition: all 0.4s ease;
-            filter: brightness(1.05);
+            filter: brightness(1.02) contrast(1.04) saturate(1.08);
             animation: slideInRight 0.8s ease-out 0.4s backwards;
         }
 
         .hero-image:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.2);
-            filter: brightness(1.1);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.38), 0 14px 36px rgba(0, 123, 255, 0.3);
+            filter: brightness(1.08) contrast(1.08) saturate(1.12);
         }
         
         .btn {
@@ -568,7 +571,19 @@
         }
 
         .hero {
-            animation: fadeInDown 1s ease-out;
+            animation: fadeInDown 1s ease-out, heroGradientFlow 16s ease-in-out infinite;
+        }
+
+        @keyframes heroGradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         @keyframes fadeInDown {
@@ -655,6 +670,22 @@
             animation: scaleIn 0.6s ease-out backwards;
             position: relative;
         }
+
+        .reveal-card {
+            opacity: 0;
+            transform: translateY(28px) scale(0.98);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+            transition-delay: var(--reveal-delay, 0ms);
+        }
+
+        .reveal-card.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .card-glow {
+            box-shadow: 0 14px 34px rgba(0, 123, 255, 0.25), 0 10px 24px rgba(0, 0, 0, 0.16);
+        }
         
         .service-card:hover {
             transform: translateY(-5px);
@@ -666,6 +697,19 @@
             height: 200px;
             overflow: hidden;
             border-radius: 12px 12px 0 0;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .service-image-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(6, 21, 33, 0.04) 8%, rgba(6, 21, 33, 0.38) 100%);
+            z-index: 1;
+            opacity: 0.52;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
         }
 
         .service-image {
@@ -673,12 +717,16 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.4s ease;
-            filter: brightness(1.05);
+            filter: brightness(1.03) contrast(1.05) saturate(1.1);
         }
 
         .service-card:hover .service-image {
-            transform: scale(1.1);
-            filter: brightness(1.1);
+            transform: scale(1.09);
+            filter: brightness(1.08) contrast(1.08) saturate(1.14);
+        }
+
+        .service-card:hover .service-image-wrapper::after {
+            opacity: 0.22;
         }
 
         .service-card h3 {
@@ -767,23 +815,42 @@
 
         .about-image-wrapper {
             width: 100%;
+            aspect-ratio: 4 / 3;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+            isolation: isolate;
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.24);
+        }
+
+        .about-image-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg, rgba(3, 15, 24, 0.15), rgba(3, 15, 24, 0.35));
+            z-index: 1;
+            opacity: 0.45;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
         }
 
         .about-image {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             border-radius: 18px;
             transition: all 0.4s ease;
-            filter: brightness(1.05);
+            filter: brightness(1.03) contrast(1.05) saturate(1.08);
         }
 
         .about-image:hover {
             transform: scale(1.05);
-            filter: brightness(1.1);
+            filter: brightness(1.1) contrast(1.08) saturate(1.12);
             box-shadow: 0 15px 35px rgba(0, 123, 255, 0.2);
+        }
+
+        .about-image-wrapper:hover::after {
+            opacity: 0.2;
         }
 
         .portfolio-image-wrapper {
@@ -791,6 +858,19 @@
             height: 250px;
             overflow: hidden;
             border-radius: 12px 12px 0 0;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .portfolio-image-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(4, 16, 28, 0.02) 0%, rgba(4, 16, 28, 0.4) 100%);
+            z-index: 1;
+            opacity: 0.5;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
         }
 
         .portfolio-image {
@@ -798,12 +878,16 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.4s ease;
-            filter: brightness(1.05);
+            filter: brightness(1.03) contrast(1.06) saturate(1.12);
         }
 
         .portfolio-item:hover .portfolio-image {
-            transform: scale(1.1);
-            filter: brightness(1.1);
+            transform: scale(1.08);
+            filter: brightness(1.1) contrast(1.1) saturate(1.15);
+        }
+
+        .portfolio-item:hover .portfolio-image-wrapper::after {
+            opacity: 0.18;
         }
         
         .portfolio-grid {
