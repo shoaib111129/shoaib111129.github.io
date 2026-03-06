@@ -23,6 +23,9 @@ window.addEventListener('load', function() {
 function initializeAllEffects() {
     mobileMenu();
     smoothScrollNavigation();
+    navScrollSpy();
+    rotateServiceWords();
+    animateCounters();
     animateOnScroll();
     revealCardsOnScroll();
     cardHoverEffects();
@@ -31,6 +34,121 @@ function initializeAllEffects() {
     logoAnimation();
     scrollProgressBar();
     backToTopButton();
+}
+
+// ============================================
+// 1A. NAV ACTIVE LINK SCROLLSPY
+// ============================================
+function navScrollSpy() {
+    const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+    if (!navLinks.length) return;
+
+    const linkMap = new Map(
+        navLinks.map((link) => [link.getAttribute('href').replace('#', ''), link])
+    );
+
+    const setActiveLink = (sectionId) => {
+        navLinks.forEach((link) => {
+            link.classList.toggle('active-link', link === linkMap.get(sectionId));
+        });
+    };
+
+    if (!('IntersectionObserver' in window)) {
+        setActiveLink('home');
+        return;
+    }
+
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                setActiveLink(entry.target.id);
+            }
+        });
+    }, {
+        rootMargin: '-40% 0px -45% 0px',
+        threshold: 0
+    });
+
+    sections.forEach((section) => observer.observe(section));
+}
+
+// ============================================
+// 1B. HERO KEYWORD ROTATOR
+// ============================================
+function rotateServiceWords() {
+    const target = document.getElementById('serviceWord');
+    if (!target) return;
+
+    const words = [
+        'electrical fault repair',
+        'computer troubleshooting',
+        'wiring and safety upgrade',
+        'software and network setup'
+    ];
+
+    let index = 0;
+    setInterval(() => {
+        target.style.opacity = '0';
+
+        setTimeout(() => {
+            index = (index + 1) % words.length;
+            target.textContent = words[index];
+            target.style.opacity = '1';
+        }, 180);
+    }, 2600);
+}
+
+// ============================================
+// 1C. COUNTER ANIMATION
+// ============================================
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number[data-target]');
+    if (!counters.length) return;
+
+    const runCounter = (counter) => {
+        if (counter.dataset.counted === 'true') return;
+        counter.dataset.counted = 'true';
+
+        const target = Number.parseInt(counter.dataset.target, 10) || 0;
+        const suffix = counter.dataset.suffix || '';
+        const duration = 1400;
+        const start = performance.now();
+
+        const update = (time) => {
+            const progress = Math.min((time - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const value = Math.round(target * eased);
+
+            counter.textContent = `${value}${suffix}`;
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            }
+        };
+
+        requestAnimationFrame(update);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+        counters.forEach((counter) => {
+            counter.textContent = `${counter.dataset.target || '0'}${counter.dataset.suffix || ''}`;
+        });
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries, observerRef) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                runCounter(entry.target);
+                observerRef.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.6
+    });
+
+    counters.forEach((counter) => observer.observe(counter));
 }
 
 // ============================================

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A-sk Tech Services - Computer repair, software installation, troubleshooting, and IT support services">
+    <meta name="description" content="A-sk Electrical and Computer Services - Professional electrical repairs, wiring, software setup, and complete troubleshooting support.">
      <link rel="stylesheet" href="Styles.css">
-    <title>A-sk Tech Services - Computer Repair and Software Solutions</title>
+    <title>A-sk Electrical and Computer Services</title>
     
 </head>
 <body>
     <!-- Loading Screen -->
     <div class="loading-screen">
-        <div class="loading-logo">⚡ A-sk Tech Services</div>
+        <div class="loading-logo">⚡ A-sk Electrical & Computer</div>
     </div>
 
     <!-- Scroll Progress Bar -->
@@ -20,7 +20,7 @@
     <!-- Header & Navigation -->
     <header>
         <div class="container">
-            <div class="logo">⚡ A-sk Tech Services</div>
+            <div class="logo">⚡ A-sk Electrical & Computer</div>
             <button
                 class="mobile-menu-btn"
                 id="mobileMenuBtn"
@@ -39,6 +39,7 @@
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Projects</a></li>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#contact">Contact Us</a></li>
                     </ul>
@@ -53,14 +54,39 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="hero-fx" aria-hidden="true">
+            <span class="float-icon fi-1">⚡</span>
+            <span class="float-icon fi-2">💻</span>
+            <span class="float-icon fi-3">🔌</span>
+            <span class="float-icon fi-4">🧰</span>
+        </div>
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1 class="animated-title">Professional Computer Services</h1>
-                    <p>Fast repair, software installation, and complete problem-solving support for home and office systems.</p>
-                    <a href="#contact" class="btn">Get Free Diagnosis</a>
+                    <p class="hero-pill">Electrical + Computer Experts</p>
+                    <h1 class="animated-title">Professional Electrical and Computer Services</h1>
+                    <p>Fast and reliable <span class="word-rotator" id="serviceWord">electrical fault repair</span> for homes, shops, and offices with one trusted team.</p>
+                    <a href="#contact" class="btn">Book Service Visit</a>
+                    <div class="hero-stats" aria-label="Service Statistics">
+                        <div class="stat-card">
+                            <span class="stat-number" data-target="1200">0</span>
+                            <span class="stat-label">Jobs Completed</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" data-target="15">0</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" data-target="24" data-suffix="/7">0</span>
+                            <span class="stat-label">Emergency Support</span>
+                        </div>
+                    </div>
                 </div>
-                <img src="images/hero.jpg" alt="Computer technician at work" class="hero-image" fetchpriority="high" decoding="async">
+                <picture>
+                    <source srcset="images/hero.avif" type="image/avif">
+                    <source srcset="images/hero.webp" type="image/webp">
+                    <img src="images/hero.jpg" alt="Computer technician at work" class="hero-image" fetchpriority="high" decoding="async">
+                </picture>
             </div>
         </div>
     </section>
@@ -72,45 +98,69 @@
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-image-wrapper">
-                        <img src="images/service-software-installation.jpg" alt="Software Installation" class="service-image" loading="lazy" decoding="async">
+                        <picture>
+                            <source srcset="images/service-troubleshooting.avif" type="image/avif">
+                            <source srcset="images/service-troubleshooting.webp" type="image/webp">
+                            <img src="images/service-troubleshooting.jpg" alt="Electrical Wiring and Rewiring" class="service-image" loading="lazy" decoding="async">
+                        </picture>
                     </div>
-                    <h3>💻 Software Installation</h3>
-                    <p>Windows apps, office tools, drivers, antivirus, and daily-use software setup with proper configuration.</p>
+                    <h3>⚡ Electrical Wiring & Rewiring</h3>
+                    <p>Safe wiring setup and rewiring for homes and offices with proper load balancing and safety standards.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-image-wrapper">
-                        <img src="images/service-maintenance.jpg" alt="System Maintenance" class="service-image" loading="lazy" decoding="async">
+                        <picture>
+                            <source srcset="images/service-maintenance.avif" type="image/avif">
+                            <source srcset="images/service-maintenance.webp" type="image/webp">
+                            <img src="images/service-maintenance.jpg" alt="Electrical Safety Inspection" class="service-image" loading="lazy" decoding="async">
+                        </picture>
                     </div>
-                    <h3>🧰 Computer Maintenance</h3>
-                    <p>Routine system cleanup, updates, and optimization to keep your PC and laptop smooth and stable.</p>
+                    <h3>🧯 Panel Upgrades & Safety Check</h3>
+                    <p>MCB, panel, earthing, and full safety inspection to reduce risk and improve electrical reliability.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-image-wrapper">
-                        <img src="images/service-repair.jpg" alt="Computer Repair" class="service-image" loading="lazy" decoding="async">
+                        <picture>
+                            <source srcset="images/service-repair.avif" type="image/avif">
+                            <source srcset="images/service-repair.webp" type="image/webp">
+                            <img src="images/service-repair.jpg" alt="Emergency Electrical Repair" class="service-image" loading="lazy" decoding="async">
+                        </picture>
                     </div>
-                    <h3>🔧 Computer Repair</h3>
-                    <p>Hardware diagnostics and repair for laptop and desktop issues including slow speed, boot failures, and crashes.</p>
+                    <h3>🔌 Emergency Electrical Repairs</h3>
+                    <p>Fast troubleshooting for short-circuit, power trip, breaker issues, and urgent electrical faults.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-image-wrapper">
-                        <img src="images/service-os-reinstall.jpg" alt="OS Reinstallation" class="service-image" loading="lazy" decoding="async">
+                        <picture>
+                            <source srcset="images/service-software-installation.avif" type="image/avif">
+                            <source srcset="images/service-software-installation.webp" type="image/webp">
+                            <img src="images/service-software-installation.jpg" alt="Software Installation" class="service-image" loading="lazy" decoding="async">
+                        </picture>
                     </div>
-                    <h3>🪟 OS Reinstallation</h3>
-                    <p>Fresh Windows installation, backup support, and driver setup for a clean and faster system experience.</p>
+                    <h3>💻 Software Installation & OS Setup</h3>
+                    <p>Windows installation, app setup, drivers, antivirus, and updates with clean and stable configuration.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-image-wrapper">
-                        <img src="images/service-network-setup.jpg" alt="Network and Device Setup" class="service-image" loading="lazy" decoding="async">
+                        <picture>
+                            <source srcset="images/service-os-reinstall.avif" type="image/avif">
+                            <source srcset="images/service-os-reinstall.webp" type="image/webp">
+                            <img src="images/service-os-reinstall.jpg" alt="Laptop and Desktop Repair" class="service-image" loading="lazy" decoding="async">
+                        </picture>
                     </div>
-                    <h3>🌐 Network & Device Setup</h3>
-                    <p>Wi-Fi router, printer, and small office device setup with secure and reliable connectivity.</p>
+                    <h3>🛠️ Laptop & Desktop Repair</h3>
+                    <p>Hardware diagnostics, speed optimization, boot issue fix, and complete maintenance for PCs and laptops.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-image-wrapper">
-                        <img src="images/service-troubleshooting.jpg" alt="Problem Solving" class="service-image" loading="lazy" decoding="async">
+                        <picture>
+                            <source srcset="images/service-network-setup.avif" type="image/avif">
+                            <source srcset="images/service-network-setup.webp" type="image/webp">
+                            <img src="images/service-network-setup.jpg" alt="Network and CCTV Setup" class="service-image" loading="lazy" decoding="async">
+                        </picture>
                     </div>
-                    <h3>🧠 Problem Solving Support</h3>
-                    <p>Quick troubleshooting for software errors, startup issues, blue screens, and performance problems.</p>
+                    <h3>🌐 Network, Printer & CCTV Setup</h3>
+                    <p>Office and home networking, router setup, printer sharing, and CCTV installation with remote access.</p>
                 </div>
             </div>
         </div>
@@ -119,23 +169,27 @@
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
-            <h2>About A-sk Tech Services</h2>
+            <h2>About A-sk Electrical & Computer Services</h2>
             <div class="about-content">
                 <div class="about-image-wrapper">
-                    <img src="images/about-team.jpg" alt="A-sk service team" class="about-image" loading="lazy" decoding="async">
+                    <picture>
+                        <source srcset="images/about-team.avif" type="image/avif">
+                        <source srcset="images/about-team.webp" type="image/webp">
+                        <img src="images/about-team.jpg" alt="A-sk service team" class="about-image" loading="lazy" decoding="async">
+                    </picture>
                 </div>
                 <div>
                     <h3>Why Choose Us?</h3>
                     <ul class="about-list">
-                        <li>✓ Skilled computer repair and support technicians</li>
-                        <li>✓ Fast response for home and office issues</li>
-                        <li>✓ Affordable plans with clear pricing</li>
-                        <li>✓ On-site and remote support options</li>
-                        <li>✓ Data safety focused workflow</li>
-                        <li>✓ 100% satisfaction-driven service</li>
+                        <li>✓ One team for electrical and computer service work</li>
+                        <li>✓ Fast response for home, shop, and office support</li>
+                        <li>✓ Safe electrical practices with quality tools</li>
+                        <li>✓ On-site and remote troubleshooting available</li>
+                        <li>✓ Transparent pricing and clear service reporting</li>
+                        <li>✓ 100% satisfaction-focused support</li>
                     </ul>
                     <h3>Our Commitment</h3>
-                    <p>At A-sk Tech Services, we deliver practical and reliable computer solutions with full transparency. From software installation to complete repair and troubleshooting, our mission is to keep your systems healthy, fast, and secure.</p>
+                    <p>At A-sk, we combine electrical expertise and computer support under one roof. From wiring faults and panel upgrades to software setup and system repair, we deliver safe, practical, and professional solutions you can trust.</p>
                 </div>
             </div>
         </div>
@@ -148,29 +202,41 @@
             <div class="portfolio-grid">
                 <div class="portfolio-item">
                     <div class="portfolio-image-wrapper">
-                        <img src="images/project-office.jpg" alt="Office system setup" class="portfolio-image" loading="lazy" decoding="async">
+                        <picture>
+                            <source srcset="images/project-office.avif" type="image/avif">
+                            <source srcset="images/project-office.webp" type="image/webp">
+                            <img src="images/project-office.jpg" alt="Commercial electrical upgrade project" class="portfolio-image" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="portfolio-info">
-                        <h3>Office Software Deployment</h3>
-                        <p>Installed and configured productivity software, antivirus, and shared tools for a 25-system office.</p>
+                        <h3>Retail Electrical Upgrade</h3>
+                        <p>Reworked shop wiring, upgraded distribution panel, and improved safety load handling for daily operations.</p>
                     </div>
                 </div>
                 <div class="portfolio-item">
                     <div class="portfolio-image-wrapper">
-                        <img src="images/project-laptop.jpg" alt="Home laptop optimization" class="portfolio-image" loading="lazy" decoding="async">
+                        <picture>
+                            <source srcset="images/project-laptop.avif" type="image/avif">
+                            <source srcset="images/project-laptop.webp" type="image/webp">
+                            <img src="images/project-laptop.jpg" alt="Office IT setup project" class="portfolio-image" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="portfolio-info">
-                        <h3>Home Laptop Performance Boost</h3>
-                        <p>Resolved startup issues, optimized boot speed, and completed full software update cycle.</p>
+                        <h3>Office IT Setup & Security</h3>
+                        <p>Configured systems, printers, software stack, and endpoint protection for a growing office team.</p>
                     </div>
                 </div>
                 <div class="portfolio-item">
                     <div class="portfolio-image-wrapper">
-                        <img src="images/project-recovery.jpg" alt="Device troubleshooting project" class="portfolio-image" loading="lazy" decoding="async">
+                        <picture>
+                            <source srcset="images/project-recovery.avif" type="image/avif">
+                            <source srcset="images/project-recovery.webp" type="image/webp">
+                            <img src="images/project-recovery.jpg" alt="Smart home electrical and network project" class="portfolio-image" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="portfolio-info">
-                        <h3>Troubleshooting and Recovery</h3>
-                        <p>Fixed recurring crash problems and restored stable operation for client systems in a retail setup.</p>
+                        <h3>Smart Home Hybrid Upgrade</h3>
+                        <p>Delivered lighting automation, secure Wi-Fi network, and reliable backup configuration in one project.</p>
                     </div>
                 </div>
             </div>
@@ -222,7 +288,7 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 Made with ❤️ Shaoib Tech. All rights reserved.</p>
-            <p>Repair • Install • Troubleshoot</p>
+            <p>Electrical • Computer • Install • Troubleshoot</p>
         </div>
     </footer>
 
