@@ -4,20 +4,29 @@
 
 // Page Load Animation
 window.addEventListener('load', function() {
-    // Hide loading screen
-    const loadingScreen = document.querySelector('.loading-screen');
-    if (loadingScreen) {
-        setTimeout(() => {
-            loadingScreen.classList.add('hidden');
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 800);
-        }, 1500);
-    }
+    runLoadingSequence();
 
     document.body.style.opacity = '1';
     initializeAllEffects();
 });
+
+function runLoadingSequence() {
+    const loadingScreen = document.querySelector('.loading-screen');
+    if (!loadingScreen) return;
+
+    // Let users perceive the progress animation before hiding the intro.
+    requestAnimationFrame(() => {
+        loadingScreen.classList.add('is-ready');
+    });
+
+    setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+        }, 760);
+    }, 920);
+}
 
 // Initialize all effects
 function initializeAllEffects() {

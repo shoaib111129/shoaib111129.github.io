@@ -10,8 +10,20 @@
 </head>
 <body>
     <!-- Loading Screen -->
-    <div class="loading-screen">
-        <div class="loading-logo">⚡ A-sk Electrical & Computer</div>
+    <div class="loading-screen" id="loadingScreen" aria-live="polite" aria-label="Loading website">
+        <div class="loading-inner">
+            <p class="loading-kicker">A-SK ELECTRICAL SERVICE</p>
+            <div class="loading-brand">⚡ A-sk Electrical & Computer</div>
+            <p class="loading-tagline">Powering electrical and computer support...</p>
+            <div class="loading-meter" aria-hidden="true">
+                <span class="loading-meter-fill" id="loadingMeterFill"></span>
+            </div>
+            <div class="loading-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </div>
 
     <!-- Scroll Progress Bar -->
