@@ -43,7 +43,7 @@ function updateNavActiveIndicator(activeLink) {
     const indicator = document.getElementById('navActiveIndicator');
     const nav = indicator ? indicator.closest('nav') : null;
 
-    if (!indicator || !nav || !activeLink || window.innerWidth <= 768) {
+    if (!indicator || !nav || !activeLink || window.innerWidth <= 1024) {
         if (indicator) {
             indicator.classList.remove('is-visible');
         }
@@ -303,7 +303,7 @@ function mobileMenu() {
     });
 
     window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
+        if (window.innerWidth > 1024) {
             closeMobileMenu();
         }
     });
