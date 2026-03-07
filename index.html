@@ -21,6 +21,37 @@
     <header>
         <div class="container">
             <div class="logo">⚡ A-sk Electrical & Computer</div>
+            <div class="header-search-wrap">
+                <button
+                    class="search-toggle-btn"
+                    id="searchToggleBtn"
+                    type="button"
+                    aria-label="Open site search"
+                    aria-expanded="false"
+                    aria-controls="searchDropdown"
+                >
+                    <span class="search-toggle-icon" aria-hidden="true">⌕</span>
+                    <span class="search-toggle-text">Search</span>
+                </button>
+                <div class="search-dropdown" id="searchDropdown" aria-hidden="true">
+                    <div class="quick-search-shell">
+                        <label for="siteSearchInput" class="sr-only">Search services, projects, and pages</label>
+                        <div class="search-input-row">
+                            <input
+                                type="search"
+                                id="siteSearchInput"
+                                class="site-search-input"
+                                placeholder="Try: wiring, laptop repair, network, contact"
+                                autocomplete="off"
+                                spellcheck="false"
+                            >
+                            <button type="button" class="clear-search-btn" id="clearSiteSearch">Clear</button>
+                        </div>
+                        <p class="search-hint">Search across services, projects, about, contact, login, and signup.</p>
+                        <div id="siteSearchResults" class="search-results" role="status" aria-live="polite"></div>
+                    </div>
+                </div>
+            </div>
             <button
                 class="mobile-menu-btn"
                 id="mobileMenuBtn"
@@ -38,7 +69,6 @@
                 <nav aria-label="Main Navigation">
                     <ul>
                         <li><a href="#home">Home</a></li>
-                        <li><a href="#quick-search">Search</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#portfolio">Projects</a></li>
                         <li><a href="#about">About Us</a></li>
@@ -88,29 +118,6 @@
                     <source srcset="images/hero.webp" type="image/webp">
                     <img src="images/hero.jpg" alt="Computer technician at work" class="hero-image" fetchpriority="high" decoding="async">
                 </picture>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quick Search Section -->
-    <section id="quick-search" class="quick-search" aria-labelledby="quickSearchHeading">
-        <div class="container">
-            <h2 id="quickSearchHeading">Find Services Fast</h2>
-            <div class="quick-search-shell">
-                <label for="siteSearchInput" class="sr-only">Search services, projects, and pages</label>
-                <div class="search-input-row">
-                    <input
-                        type="search"
-                        id="siteSearchInput"
-                        class="site-search-input"
-                        placeholder="Try: wiring, laptop repair, network, contact"
-                        autocomplete="off"
-                        spellcheck="false"
-                    >
-                    <button type="button" class="clear-search-btn" id="clearSiteSearch">Clear</button>
-                </div>
-                <p class="search-hint">Search across services, projects, about, contact, login, and signup.</p>
-                <div id="siteSearchResults" class="search-results" role="status" aria-live="polite"></div>
             </div>
         </div>
     </section>
