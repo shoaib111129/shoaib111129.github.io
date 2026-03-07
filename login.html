@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login to A-sk Electrical and Computer Services account.">
+    <link rel="stylesheet" href="Styles.css">
+    <title>Login | A-sk Electrical and Computer Services</title>
+</head>
+<body class="auth-page">
+    <div class="auth-shell">
+        <div class="container">
+            <div class="auth-topbar">
+                <a href="index.html" class="auth-brand">A-sk Electrical &amp; Computer</a>
+                <div class="auth-links">
+                    <a href="index.html" class="auth-link">Back to Home</a>
+                    <a href="signup.html" class="auth-link">Create Account</a>
+                </div>
+            </div>
+
+            <main class="auth-main">
+                <section class="auth-intro" aria-label="Login Information">
+                    <span class="auth-kicker">Secure Access</span>
+                    <h2 class="auth-title">Track services, requests, and support updates in one place.</h2>
+                    <p class="auth-copy">Login to continue with your bookings, see service history, and communicate quickly with the A-sk team.</p>
+
+                    <div class="auth-feature-grid">
+                        <div class="auth-feature">
+                            <strong>Live Service Status</strong>
+                            <span>Check pending, in-progress, and completed tasks anytime.</span>
+                        </div>
+                        <div class="auth-feature">
+                            <strong>Fast Rebooking</strong>
+                            <span>Repeat previous electrical or computer services in a few clicks.</span>
+                        </div>
+                        <div class="auth-feature">
+                            <strong>Priority Assistance</strong>
+                            <span>Get support updates and technician coordination faster.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="auth-card" aria-labelledby="loginTitle">
+                    <h1 id="loginTitle">Welcome Back</h1>
+                    <p>Use your registered details to login.</p>
+
+                    <form class="auth-form" id="loginForm" data-success-message="Login successful. Redirecting to your dashboard." novalidate>
+                        <div class="auth-field">
+                            <label for="loginIdentity">Email or Phone</label>
+                            <input
+                                type="text"
+                                id="loginIdentity"
+                                name="identity"
+                                autocomplete="username"
+                                placeholder="you@example.com or +91xxxxxxxxxx"
+                                required
+                            >
+                        </div>
+
+                        <div class="auth-field">
+                            <label for="loginPassword">Password</label>
+                            <div class="password-field">
+                                <input
+                                    type="password"
+                                    id="loginPassword"
+                                    name="password"
+                                    autocomplete="current-password"
+                                    minlength="8"
+                                    placeholder="Enter your password"
+                                    required
+                                >
+                                <button type="button" class="password-toggle" data-password-target="loginPassword" aria-label="Show password">Show</button>
+                            </div>
+                        </div>
+
+                        <div class="auth-row">
+                            <label class="checkbox-label" for="rememberSession">
+                                <input type="checkbox" id="rememberSession" name="remember">
+                                Keep me signed in
+                            </label>
+                            <a href="mailto:contact.askelectrical@gmail.com" class="auth-inline-link">Need login help?</a>
+                        </div>
+
+                        <button type="submit" class="btn auth-submit">Login</button>
+
+                        <p class="auth-switch">New here? <a href="signup.html">Create your account</a></p>
+                        <p class="auth-response" id="loginFormMessage" role="status" aria-live="polite"></p>
+                    </form>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

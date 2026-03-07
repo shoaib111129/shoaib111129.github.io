@@ -30,6 +30,7 @@ function initializeAllEffects() {
     revealCardsOnScroll();
     cardHoverEffects();
     formAnimations();
+    authFormEnhancements();
     headerScrollEffect();
     logoAnimation();
     scrollProgressBar();
@@ -372,6 +373,113 @@ function formAnimations() {
             }, 2000);
         }, 1500);
     });
+}
+
+// ============================================
+// 5B. AUTH FORM ENHANCEMENTS
+// ============================================
+function authFormEnhancements() {
+    const authForms = document.querySelectorAll('.auth-form');
+    if (!authForms.length) return;
+
+    setupPasswordToggles();
+
+    authForms.forEach((form) => {
+        const responseElement = form.querySelector('.auth-response');
+
+        if (form.id === 'signupForm') {
+            const signupPassword = form.querySelector('#signupPassword');
+            const confirmPassword = form.querySelector('#signupConfirmPassword');
+
+            const syncPasswordValidation = () => {
+                if (!signupPassword || !confirmPassword) return;
+
+                if (confirmPassword.value && signupPassword.value !== confirmPassword.value) {
+                    confirmPassword.setCustomValidity('Passwords do not match.');
+                } else {
+                    confirmPassword.setCustomValidity('');
+                }
+            };
+
+            if (signupPassword && confirmPassword) {
+                signupPassword.addEventListener('input', syncPasswordValidation);
+                confirmPassword.addEventListener('input', syncPasswordValidation);
+            }
+        }
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            clearAuthResponse(responseElement);
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                setAuthResponse(responseElement, 'Please complete all required fields correctly.', 'error');
+                return;
+            }
+
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalLabel = submitButton ? submitButton.textContent : '';
+
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Please wait...';
+            }
+
+            setTimeout(() => {
+                if (submitButton) {
+                    submitButton.textContent = originalLabel;
+                    submitButton.disabled = false;
+                }
+
+                const successMessage = form.dataset.successMessage || 'Form submitted successfully.';
+                setAuthResponse(responseElement, successMessage, 'success');
+                form.reset();
+
+                form.querySelectorAll('input[type="password"]').forEach((input) => {
+                    input.type = 'password';
+                });
+
+                form.querySelectorAll('.password-toggle').forEach((toggle) => {
+                    toggle.textContent = 'Show';
+                });
+            }, 850);
+        });
+    });
+}
+
+function setupPasswordToggles() {
+    const toggles = document.querySelectorAll('.password-toggle[data-password-target]');
+
+    toggles.forEach((toggle) => {
+        toggle.addEventListener('click', () => {
+            const targetId = toggle.getAttribute('data-password-target');
+            const targetInput = targetId ? document.getElementById(targetId) : null;
+
+            if (!targetInput) return;
+
+            const isVisible = targetInput.type === 'text';
+            targetInput.type = isVisible ? 'password' : 'text';
+            toggle.textContent = isVisible ? 'Show' : 'Hide';
+        });
+    });
+}
+
+function setAuthResponse(target, message, type) {
+    if (!target) return;
+
+    target.classList.remove('success', 'error');
+    target.textContent = message;
+
+    if (type === 'success' || type === 'error') {
+        target.classList.add(type);
+    }
+}
+
+function clearAuthResponse(target) {
+    if (!target) return;
+
+    target.classList.remove('success', 'error');
+    target.textContent = '';
 }
 
 // ============================================

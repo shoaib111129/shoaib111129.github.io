@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create an account on A-sk Electrical and Computer Services.">
+    <link rel="stylesheet" href="Styles.css">
+    <title>Signup | A-sk Electrical and Computer Services</title>
+</head>
+<body class="auth-page">
+    <div class="auth-shell">
+        <div class="container">
+            <div class="auth-topbar">
+                <a href="index.html" class="auth-brand">A-sk Electrical &amp; Computer</a>
+                <div class="auth-links">
+                    <a href="index.html" class="auth-link">Back to Home</a>
+                    <a href="login.html" class="auth-link">Already Registered</a>
+                </div>
+            </div>
+
+            <main class="auth-main">
+                <section class="auth-intro" aria-label="Signup Information">
+                    <span class="auth-kicker">New Account</span>
+                    <h2 class="auth-title">Create your profile and simplify every future service request.</h2>
+                    <p class="auth-copy">Signup once to save your details, submit support requests quickly, and manage your electrical and computer jobs from one account.</p>
+
+                    <div class="auth-feature-grid">
+                        <div class="auth-feature">
+                            <strong>Faster Booking Forms</strong>
+                            <span>Your contact details are ready when you request support.</span>
+                        </div>
+                        <div class="auth-feature">
+                            <strong>Service Timeline</strong>
+                            <span>Keep record of all maintenance, repairs, and installations.</span>
+                        </div>
+                        <div class="auth-feature">
+                            <strong>Clear Communication</strong>
+                            <span>Receive updates from our team on pending and completed work.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="auth-card" aria-labelledby="signupTitle">
+                    <h1 id="signupTitle">Create Account</h1>
+                    <p>Fill in your details to start.</p>
+
+                    <form class="auth-form" id="signupForm" data-success-message="Account created successfully. You can now login." novalidate>
+                        <div class="auth-field">
+                            <label for="signupName">Full Name</label>
+                            <input
+                                type="text"
+                                id="signupName"
+                                name="fullName"
+                                autocomplete="name"
+                                placeholder="Enter your full name"
+                                required
+                            >
+                        </div>
+
+                        <div class="auth-field">
+                            <label for="signupEmail">Email Address</label>
+                            <input
+                                type="email"
+                                id="signupEmail"
+                                name="email"
+                                autocomplete="email"
+                                placeholder="you@example.com"
+                                required
+                            >
+                        </div>
+
+                        <div class="auth-field">
+                            <label for="signupPhone">Phone Number</label>
+                            <input
+                                type="tel"
+                                id="signupPhone"
+                                name="phone"
+                                autocomplete="tel"
+                                placeholder="+91xxxxxxxxxx"
+                                required
+                            >
+                        </div>
+
+                        <div class="auth-field">
+                            <label for="signupPassword">Create Password</label>
+                            <div class="password-field">
+                                <input
+                                    type="password"
+                                    id="signupPassword"
+                                    name="password"
+                                    autocomplete="new-password"
+                                    minlength="8"
+                                    placeholder="At least 8 characters"
+                                    required
+                                >
+                                <button type="button" class="password-toggle" data-password-target="signupPassword" aria-label="Show password">Show</button>
+                            </div>
+                        </div>
+
+                        <div class="auth-field">
+                            <label for="signupConfirmPassword">Confirm Password</label>
+                            <div class="password-field">
+                                <input
+                                    type="password"
+                                    id="signupConfirmPassword"
+                                    name="confirmPassword"
+                                    autocomplete="new-password"
+                                    minlength="8"
+                                    placeholder="Re-enter password"
+                                    required
+                                >
+                                <button type="button" class="password-toggle" data-password-target="signupConfirmPassword" aria-label="Show confirm password">Show</button>
+                            </div>
+                        </div>
+
+                        <div class="auth-row">
+                            <label class="checkbox-label" for="acceptTerms">
+                                <input type="checkbox" id="acceptTerms" name="terms" required>
+                                I agree to the service terms.
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn auth-submit">Create Account</button>
+
+                        <p class="auth-switch">Already have an account? <a href="login.html">Login now</a></p>
+                        <p class="auth-response" id="signupFormMessage" role="status" aria-live="polite"></p>
+                    </form>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
