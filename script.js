@@ -23,6 +23,7 @@ window.addEventListener('load', function() {
 function initializeAllEffects() {
     mobileMenu();
     smoothScrollNavigation();
+    siteSearch();
     navScrollSpy();
     rotateServiceWords();
     animateCounters();
@@ -246,6 +247,325 @@ function smoothScrollNavigation() {
             }
         });
     });
+}
+
+// ============================================
+// 1D. QUICK SITE SEARCH
+// ============================================
+function siteSearch() {
+    const searchInput = document.getElementById('siteSearchInput');
+    const clearButton = document.getElementById('clearSiteSearch');
+    const resultsContainer = document.getElementById('siteSearchResults');
+
+    if (!searchInput || !clearButton || !resultsContainer) return;
+
+    const searchItems = buildSearchIndex();
+    let currentResults = [];
+    let activeIndex = -1;
+
+    const typeLabels = {
+        page: 'Page',
+        service: 'Service',
+        project: 'Project',
+        info: 'Info',
+        account: 'Account'
+    };
+
+    const escapeHtml = (value = '') => value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+    const escapeRegExp = (value = '') => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const highlightTerms = (text, terms) => {
+        let output = escapeHtml(text || '');
+
+        terms
+            .filter((term) => term.length > 1)
+            .forEach((term) => {
+                const termRegex = new RegExp(`(${escapeRegExp(term)})`, 'ig');
+                output = output.replace(termRegex, '<mark>$1</mark>');
+            });
+
+        return output;
+    };
+
+    const rankItems = (query) => {
+        const normalizedQuery = query.trim().toLowerCase();
+        if (!normalizedQuery) return [];
+
+        const terms = normalizedQuery.split(/\s+/).filter(Boolean);
+
+        const ranked = searchItems
+            .map((item) => {
+                const searchable = `${item.title} ${item.description} ${item.keywords}`.toLowerCase();
+                const title = item.title.toLowerCase();
+                let score = 0;
+
+                if (title.includes(normalizedQuery)) score += 8;
+                if (searchable.includes(normalizedQuery)) score += 5;
+
+                terms.forEach((term) => {
+                    if (title.startsWith(term)) score += 4;
+                    if (title.includes(term)) score += 2;
+                    if (searchable.includes(term)) score += 1;
+                });
+
+                return {
+                    ...item,
+                    score
+                };
+            })
+            .filter((item) => item.score > 0)
+            .sort((a, b) => b.score - a.score);
+
+        return ranked.slice(0, 8);
+    };
+
+    const updateActiveCard = (nextIndex) => {
+        const cards = resultsContainer.querySelectorAll('.search-result-item');
+
+        cards.forEach((card, index) => {
+            card.classList.toggle('is-active', index === nextIndex);
+        });
+
+        if (nextIndex >= 0 && cards[nextIndex]) {
+            cards[nextIndex].scrollIntoView({
+                block: 'nearest',
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    const scrollToSearchTarget = (item) => {
+        if (item.url) {
+            window.location.href = item.url;
+            return;
+        }
+
+        if (!item.target) return;
+
+        const header = document.querySelector('header');
+        const headerOffset = header ? header.offsetHeight + 14 : 90;
+        const offsetTop = item.target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+            top: Math.max(offsetTop, 0),
+            behavior: 'smooth'
+        });
+
+        item.target.classList.add('search-target-flash');
+        setTimeout(() => {
+            item.target.classList.remove('search-target-flash');
+        }, 1100);
+
+        closeMobileMenu();
+    };
+
+    const renderIdleState = () => {
+        resultsContainer.innerHTML = '<p class="search-status">Start typing to find matching services, projects, and sections.</p>';
+        currentResults = [];
+        activeIndex = -1;
+    };
+
+    const renderNoMatchState = (query) => {
+        resultsContainer.innerHTML = `<p class="search-empty">No match found for "${escapeHtml(query)}". Try keywords like wiring, repair, network, or contact.</p>`;
+        currentResults = [];
+        activeIndex = -1;
+    };
+
+    const renderResults = (results, terms) => {
+        const markup = results.map((result, index) => {
+            const type = typeLabels[result.type] || 'Result';
+            const title = highlightTerms(result.title, terms);
+            const description = highlightTerms(result.description, terms);
+
+            return `
+                <li class="search-result-item" data-result-index="${index}">
+                    <button type="button" class="search-result-action">
+                        <span class="search-meta">${type}</span>
+                        <span class="search-result-title">${title}</span>
+                        <span class="search-result-desc">${description}</span>
+                    </button>
+                </li>
+            `;
+        }).join('');
+
+        resultsContainer.innerHTML = `<ul class="search-list">${markup}</ul>`;
+
+        resultsContainer.querySelectorAll('.search-result-action').forEach((button) => {
+            button.addEventListener('click', (event) => {
+                const card = event.currentTarget.closest('[data-result-index]');
+                if (!card) return;
+
+                const resultIndex = Number.parseInt(card.dataset.resultIndex, 10);
+                const selected = currentResults[resultIndex];
+                if (!selected) return;
+
+                scrollToSearchTarget(selected);
+            });
+        });
+    };
+
+    const applySearch = () => {
+        const query = searchInput.value.trim();
+        if (!query) {
+            renderIdleState();
+            return;
+        }
+
+        const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+        const results = rankItems(query);
+
+        if (!results.length) {
+            renderNoMatchState(query);
+            return;
+        }
+
+        currentResults = results;
+        activeIndex = -1;
+        renderResults(results, terms);
+    };
+
+    searchInput.addEventListener('input', applySearch);
+
+    searchInput.addEventListener('keydown', (event) => {
+        if (!currentResults.length) return;
+
+        if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            activeIndex = (activeIndex + 1) % currentResults.length;
+            updateActiveCard(activeIndex);
+            return;
+        }
+
+        if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            activeIndex = activeIndex <= 0 ? currentResults.length - 1 : activeIndex - 1;
+            updateActiveCard(activeIndex);
+            return;
+        }
+
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const selected = currentResults[activeIndex >= 0 ? activeIndex : 0];
+            if (selected) {
+                scrollToSearchTarget(selected);
+            }
+            return;
+        }
+
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            searchInput.value = '';
+            renderIdleState();
+        }
+    });
+
+    clearButton.addEventListener('click', () => {
+        searchInput.value = '';
+        renderIdleState();
+        searchInput.focus();
+    });
+
+    renderIdleState();
+}
+
+function buildSearchIndex() {
+    const items = [];
+
+    const addItem = (item) => {
+        if (!item || !item.title) return;
+
+        items.push({
+            title: item.title,
+            description: item.description || '',
+            keywords: item.keywords || '',
+            target: item.target || null,
+            url: item.url || '',
+            type: item.type || 'info'
+        });
+    };
+
+    document.querySelectorAll('nav a[href^="#"]').forEach((link) => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        const target = document.querySelector(href);
+        if (!target) return;
+
+        const title = (link.textContent || '').trim();
+        if (!title) return;
+
+        addItem({
+            title,
+            description: `Jump to the ${title} section.`,
+            keywords: `${title} page section navigation`,
+            target,
+            type: 'page'
+        });
+    });
+
+    document.querySelectorAll('#services .service-card').forEach((card) => {
+        const title = (card.querySelector('h3')?.textContent || '').trim();
+        const description = (card.querySelector('p')?.textContent || '').trim();
+        if (!title) return;
+
+        addItem({
+            title,
+            description,
+            keywords: `${title} ${description} service support repair`,
+            target: card,
+            type: 'service'
+        });
+    });
+
+    document.querySelectorAll('#portfolio .portfolio-item').forEach((item) => {
+        const title = (item.querySelector('h3')?.textContent || '').trim();
+        const description = (item.querySelector('p')?.textContent || '').trim();
+        if (!title) return;
+
+        addItem({
+            title,
+            description,
+            keywords: `${title} ${description} portfolio project work`,
+            target: item,
+            type: 'project'
+        });
+    });
+
+    document.querySelectorAll('#contact .contact-item').forEach((item) => {
+        const title = (item.querySelector('h3')?.textContent || '').trim();
+        const description = (item.querySelector('p')?.textContent || '').trim().replace(/\s+/g, ' ');
+        if (!title || !description) return;
+
+        addItem({
+            title,
+            description,
+            keywords: `${title} ${description} contact phone email address`,
+            target: item,
+            type: 'info'
+        });
+    });
+
+    document.querySelectorAll('.header-auth a[href]').forEach((link) => {
+        const title = (link.textContent || '').trim();
+        const href = link.getAttribute('href');
+        if (!title || !href) return;
+
+        addItem({
+            title,
+            description: `Open ${title} page.`,
+            keywords: `${title} account authentication`,
+            url: href,
+            type: 'account'
+        });
+    });
+
+    return items;
 }
 
 // ============================================
