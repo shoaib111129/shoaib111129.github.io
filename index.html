@@ -21,6 +21,24 @@
     <header>
         <div class="container">
             <div class="logo">⚡ A-sk Electrical & Computer</div>
+
+            <div class="mobile-menu" id="mobileMenu">
+                <nav aria-label="Main Navigation">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Projects</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                    <span class="nav-active-indicator" id="navActiveIndicator" aria-hidden="true"></span>
+                </nav>
+                <div class="header-auth">
+                    <a href="login.html" class="btn-login">Login</a>
+                    <a href="signup.html" class="btn-signup">Signup</a>
+                </div>
+            </div>
+
             <div class="header-search-wrap">
                 <button
                     class="search-toggle-btn"
@@ -30,7 +48,10 @@
                     aria-expanded="false"
                     aria-controls="searchDropdown"
                 >
-                    <span class="search-toggle-icon" aria-hidden="true">⌕</span>
+                    <svg class="search-toggle-icon" aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                        <circle cx="11" cy="11" r="6.5" fill="none"></circle>
+                        <line x1="16" y1="16" x2="21" y2="21"></line>
+                    </svg>
                     <span class="search-toggle-text">Search</span>
                 </button>
                 <div class="search-dropdown" id="searchDropdown" aria-hidden="true">
@@ -52,6 +73,7 @@
                     </div>
                 </div>
             </div>
+
             <button
                 class="mobile-menu-btn"
                 id="mobileMenuBtn"
@@ -64,21 +86,18 @@
                 <span></span>
                 <span></span>
             </button>
+        </div>
 
-            <div class="mobile-menu" id="mobileMenu">
-                <nav aria-label="Main Navigation">
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#portfolio">Projects</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                    </ul>
-                </nav>
-                <div class="header-auth">
-                    <a href="login.html" class="btn-login">Login</a>
-                    <a href="signup.html" class="btn-signup">Signup</a>
-                </div>
+        <div class="section-progress-shell" id="sectionProgressShell" aria-label="Section progress tracker">
+            <div class="section-progress-track">
+                <span class="section-progress-fill" id="sectionProgressFill"></span>
+            </div>
+            <div class="section-progress-labels" role="list">
+                <a href="#home" class="section-progress-label" data-section-target="home" role="listitem">Home</a>
+                <a href="#services" class="section-progress-label" data-section-target="services" role="listitem">Services</a>
+                <a href="#portfolio" class="section-progress-label" data-section-target="portfolio" role="listitem">Projects</a>
+                <a href="#about" class="section-progress-label" data-section-target="about" role="listitem">About</a>
+                <a href="#contact" class="section-progress-label" data-section-target="contact" role="listitem">Contact</a>
             </div>
         </div>
     </header>

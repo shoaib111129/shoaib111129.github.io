@@ -39,32 +39,83 @@ function initializeAllEffects() {
     backToTopButton();
 }
 
+function updateNavActiveIndicator(activeLink) {
+    const indicator = document.getElementById('navActiveIndicator');
+    const nav = indicator ? indicator.closest('nav') : null;
+
+    if (!indicator || !nav || !activeLink || window.innerWidth <= 768) {
+        if (indicator) {
+            indicator.classList.remove('is-visible');
+        }
+        return;
+    }
+
+    const navRect = nav.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+
+    indicator.style.width = `${linkRect.width}px`;
+    indicator.style.transform = `translateX(${linkRect.left - navRect.left}px)`;
+    indicator.classList.add('is-visible');
+}
+
+function setSectionProgressLabelState(sectionId) {
+    const labels = document.querySelectorAll('.section-progress-label[data-section-target]');
+    if (!labels.length) return;
+
+    labels.forEach((label) => {
+        label.classList.toggle('is-current', label.dataset.sectionTarget === sectionId);
+    });
+}
+
 // ============================================
 // 1A. NAV ACTIVE LINK SCROLLSPY
 // ============================================
 function navScrollSpy() {
-    const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+    const navLinks = Array.from(document.querySelectorAll('header nav a[href^="#"]'));
     if (!navLinks.length) return;
 
     const linkMap = new Map(
         navLinks.map((link) => [link.getAttribute('href').replace('#', ''), link])
     );
 
+    const orderedSectionIds = Array.from(linkMap.keys());
+    let activeSectionId = orderedSectionIds[0] || '';
+
     const setActiveLink = (sectionId) => {
+        if (!linkMap.has(sectionId)) return;
+
+        activeSectionId = sectionId;
+        let activeLink = null;
+
         navLinks.forEach((link) => {
-            link.classList.toggle('active-link', link === linkMap.get(sectionId));
+            const isActive = link === linkMap.get(sectionId);
+            link.classList.toggle('active-link', isActive);
+
+            if (isActive) {
+                activeLink = link;
+            }
         });
+
+        setSectionProgressLabelState(sectionId);
+        updateNavActiveIndicator(activeLink);
     };
 
+    if (activeSectionId) {
+        setActiveLink(activeSectionId);
+    }
+
+    window.addEventListener('resize', () => {
+        updateNavActiveIndicator(linkMap.get(activeSectionId) || null);
+    });
+
     if (!('IntersectionObserver' in window)) {
-        setActiveLink('home');
         return;
     }
 
     const sections = document.querySelectorAll('section[id]');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting && linkMap.has(entry.target.id)) {
                 setActiveLink(entry.target.id);
             }
         });
@@ -263,20 +314,35 @@ function mobileMenu() {
 // ============================================
 function scrollProgressBar() {
     const progressBar = document.querySelector('.scroll-progress-bar');
+    const sectionProgressFill = document.getElementById('sectionProgressFill');
     if (!progressBar) return;
+
+    const applyScrollProgress = () => {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolledRatio = scrollHeight > 0 ? window.pageYOffset / scrollHeight : 0;
+        const clampedRatio = Math.min(Math.max(scrolledRatio, 0), 1);
+
+        progressBar.style.transform = `scaleX(${clampedRatio})`;
+
+        if (sectionProgressFill) {
+            sectionProgressFill.style.width = `${clampedRatio * 100}%`;
+        }
+    };
+
+    applyScrollProgress();
 
     let ticking = false;
     window.addEventListener('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const scrolled = (window.pageYOffset / scrollHeight) * 100;
-                progressBar.style.transform = `scaleX(${scrolled / 100})`;
+                applyScrollProgress();
                 ticking = false;
             });
             ticking = true;
         }
     }, { passive: true });
+
+    window.addEventListener('resize', applyScrollProgress);
 }
 
 // ============================================
@@ -287,10 +353,13 @@ function smoothScrollNavigation() {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
+            if (!targetId || targetId === '#') return;
+
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                const headerOffset = 80;
+                const header = document.querySelector('header');
+                const headerOffset = header ? header.offsetHeight + 12 : 80;
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -299,6 +368,7 @@ function smoothScrollNavigation() {
                     behavior: 'smooth'
                 });
 
+                closeSearchDropdown();
                 closeMobileMenu();
             }
         });
@@ -875,27 +945,19 @@ function headerScrollEffect() {
     const header = document.querySelector('header');
     if (!header) return;
 
-    let lastScroll = 0;
     let ticking = false;
     
     window.addEventListener('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
                 const currentScroll = window.pageYOffset;
-                
-                if (currentScroll > 100) {
-                    header.style.padding = '0.5rem 0';
-                } else {
-                    header.style.padding = '1rem 0';
-                }
-                
-                if (currentScroll > lastScroll && currentScroll > 500) {
-                    header.style.transform = 'translateY(-100%)';
-                } else {
-                    header.style.transform = 'translateY(0)';
-                }
-                
-                lastScroll = currentScroll;
+
+                header.style.padding = currentScroll > 70 ? '0.58rem 0' : '1rem 0';
+                header.style.transform = 'translateY(0)';
+                header.style.boxShadow = currentScroll > 20
+                    ? '0 12px 28px rgba(5, 16, 26, 0.22)'
+                    : 'none';
+
                 ticking = false;
             });
             ticking = true;
@@ -916,14 +978,6 @@ function logoAnimation() {
             this.style.animation = 'shimmer 1s ease-in-out';
         }, 10);
     });
-
-    // Continuous subtle animation
-    setInterval(() => {
-        logo.style.transform = 'scale(1.05)';
-        setTimeout(() => {
-            logo.style.transform = 'scale(1)';
-        }, 200);
-    }, 5000);
 }
 
 // ============================================
