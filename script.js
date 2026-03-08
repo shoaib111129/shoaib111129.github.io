@@ -807,6 +807,18 @@ function formAnimations() {
     const form = document.querySelector('.contact-form');
     if (!form) return;
 
+    const responseElement = document.getElementById('contactFormMessage');
+    const setContactResponse = (message, type = '') => {
+        if (!responseElement) return;
+
+        responseElement.classList.remove('success', 'error');
+        responseElement.textContent = message;
+
+        if (type === 'success' || type === 'error') {
+            responseElement.classList.add(type);
+        }
+    };
+
     const inputs = form.querySelectorAll('input, textarea');
     
     inputs.forEach(input => {
@@ -819,24 +831,70 @@ function formAnimations() {
         });
     });
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
+        setContactResponse('');
+
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            setContactResponse('Please complete all required fields correctly.', 'error');
+            return;
+        }
         
         const button = this.querySelector('button[type="submit"]');
+        if (!button) return;
+
         const originalText = button.textContent;
         
         button.textContent = 'Sending...';
         button.disabled = true;
 
-        setTimeout(() => {
+        const action = form.getAttribute('action') || '';
+        const shouldUseFormSubmit = /formsubmit\.co/i.test(action);
+
+        if (!shouldUseFormSubmit) {
+            setTimeout(() => {
+                button.textContent = '✓ Message Sent!';
+                setContactResponse('Message sent successfully.', 'success');
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    form.reset();
+                }, 2000);
+            }, 1500);
+
+            return;
+        }
+
+        try {
+            const formData = new FormData(form);
+            const ajaxEndpoint = action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
+            const response = await fetch(ajaxEndpoint, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Unable to submit contact form');
+            }
+
             button.textContent = '✓ Message Sent!';
-            
+            setContactResponse('Message sent successfully. We will contact you soon.', 'success');
+            form.reset();
+
             setTimeout(() => {
                 button.textContent = originalText;
                 button.disabled = false;
-                form.reset();
             }, 2000);
-        }, 1500);
+        } catch (error) {
+            button.textContent = originalText;
+            button.disabled = false;
+            setContactResponse('Message not sent. Please call +919049690523 or email contact.askelectrical@gmail.com.', 'error');
+        }
     });
 }
 

@@ -1638,10 +1638,39 @@
             line-height: 1.7;
             letter-spacing: -0.01em;
         }
+
+        .contact-map-link {
+            color: #9fddff;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(159, 221, 255, 0.45);
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .contact-map-link:hover {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.9);
+        }
         
         .contact-form {
             max-width: 600px;
             margin: 2rem auto;
+        }
+
+        .contact-response {
+            min-height: 1.2rem;
+            margin-top: 0.9rem;
+            text-align: center;
+            font-size: 0.92rem;
+            color: rgba(225, 244, 255, 0.88);
+        }
+
+        .contact-response.success {
+            color: #b9f9d6;
+        }
+
+        .contact-response.error {
+            color: #ffd1d1;
         }
         
         .form-group {
