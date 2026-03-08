@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://askelectricalservice.me/sitemap.xml
