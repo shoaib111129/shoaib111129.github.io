@@ -1639,7 +1639,8 @@
             letter-spacing: -0.01em;
         }
 
-        .contact-phone-link {
+        .contact-phone-link,
+        .contact-email-link {
             color: #eaf7ff;
             font-size: 1.08rem;
             font-weight: 700;
@@ -1647,9 +1648,11 @@
             text-decoration: none;
             border-bottom: 1px solid rgba(234, 247, 255, 0.4);
             transition: color 0.2s ease, border-color 0.2s ease;
+            overflow-wrap: anywhere;
         }
 
-        .contact-phone-link:hover {
+        .contact-phone-link:hover,
+        .contact-email-link:hover {
             color: #ffffff;
             border-color: rgba(255, 255, 255, 0.9);
         }
