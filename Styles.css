@@ -1639,6 +1639,29 @@
             letter-spacing: -0.01em;
         }
 
+        .contact-phone-link {
+            color: #eaf7ff;
+            font-size: 1.08rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(234, 247, 255, 0.4);
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .contact-phone-link:hover {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-note {
+            display: inline-block;
+            margin-top: 0.2rem;
+            color: rgba(225, 244, 255, 0.78);
+            font-size: 0.86rem;
+            letter-spacing: 0;
+        }
+
         .contact-coords {
             display: inline-block;
             color: rgba(225, 244, 255, 0.78);
