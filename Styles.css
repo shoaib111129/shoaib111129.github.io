@@ -1803,6 +1803,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0.55rem;
+            justify-content: center;
         }
 
         .footer-links a {
@@ -1830,22 +1831,29 @@
         }
 
         .footer-contact-quick {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 0.65rem;
         }
 
         .footer-contact-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
             border-radius: 12px;
             border: 1px solid rgba(126, 217, 255, 0.26);
             background: rgba(4, 24, 38, 0.55);
             color: rgba(229, 245, 255, 0.94);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             font-weight: 600;
-            padding: 0.7rem 0.8rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            padding: 0.48rem 0.78rem;
             transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
-            overflow-wrap: anywhere;
+            white-space: nowrap;
         }
 
         .footer-contact-link:hover {
@@ -2352,11 +2360,13 @@
             }
 
             .footer-contact-quick {
-                grid-template-columns: 1fr;
+                justify-content: center;
             }
 
             .footer-contact-link {
                 text-align: center;
+                min-height: 34px;
+                font-size: 0.78rem;
             }
         }
 
@@ -2628,6 +2638,11 @@
             .footer-service-line {
                 font-size: 0.72rem;
                 letter-spacing: 0.025em;
+            }
+
+            .footer-contact-link {
+                font-size: 0.74rem;
+                padding: 0.42rem 0.64rem;
             }
 
 
