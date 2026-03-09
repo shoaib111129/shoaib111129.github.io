@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="A-sk favicon">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f9df87"/>
+      <stop offset="45%" stop-color="#f0b63f"/>
+      <stop offset="100%" stop-color="#bb7c18"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7f7f7"/>
+      <stop offset="100%" stop-color="#b8bcc4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="128" height="128" rx="22" fill="#06090f"/>
+  <path d="M16 86 A52 52 0 0 1 108 34" fill="none" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/>
+
+  <path d="M28 100 L52 30 H67 L90 100 H76 L70 82 H48 L42 100 Z" fill="url(#silver)"/>
+  <path d="M55 48 L66 78 H45 Z" fill="#06090f"/>
+
+  <path d="M56 55 L49 75 H60 L54 95 L79 67 H67 L74 55 Z" fill="url(#gold)"/>
+</svg>
