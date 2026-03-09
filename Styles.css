@@ -237,6 +237,25 @@
         body.menu-open {
             overflow: hidden;
         }
+
+        .skip-link {
+            position: absolute;
+            top: -44px;
+            left: 12px;
+            z-index: 12000;
+            background: #0c4f85;
+            color: #ffffff;
+            padding: 0.55rem 0.85rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.86rem;
+            font-weight: 700;
+            transition: top 0.2s ease;
+        }
+
+        .skip-link:focus {
+            top: 12px;
+        }
         
         header {
             background-color: rgba(12, 24, 34, 0.94);
@@ -883,6 +902,38 @@
             flex-wrap: wrap;
         }
 
+        .hero-service-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.55rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-service-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 0.38rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(126, 217, 255, 0.42);
+            background: rgba(255, 255, 255, 0.08);
+            color: #dff5ff;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .hero-service-links a:hover {
+            transform: translateY(-1px);
+            border-color: rgba(126, 217, 255, 0.78);
+            background: rgba(0, 123, 255, 0.24);
+        }
+
         .hero-quick-link {
             display: inline-flex;
             align-items: center;
@@ -1296,6 +1347,49 @@
             gap: 2rem;
             margin-top: 2rem;
         }
+
+        .services-intro {
+            max-width: 760px;
+            margin: 0 auto;
+            text-align: center;
+            color: #425870;
+            font-size: 1.03rem;
+            line-height: 1.7;
+            letter-spacing: -0.01em;
+        }
+
+        .service-jump-links {
+            margin: 1rem auto 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            max-width: 900px;
+        }
+
+        .service-jump-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 0.42rem 0.78rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 123, 255, 0.26);
+            background: rgba(0, 123, 255, 0.06);
+            color: #0d507f;
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .service-jump-links a:hover {
+            transform: translateY(-1px);
+            border-color: rgba(0, 123, 255, 0.55);
+            background: rgba(0, 123, 255, 0.16);
+        }
         
         #services {
             background-color: #fefefe;
@@ -1396,6 +1490,7 @@
             opacity: 0.22;
         }
 
+        .service-card h2,
         .service-card h3 {
             color: #1d1d1f;
             margin-bottom: 1rem;
@@ -1409,12 +1504,41 @@
             background-clip: text;
         }
 
+        .service-card h2::after {
+            content: none;
+        }
+
         .service-card p {
             padding: 0 1rem 1.5rem 1rem;
             font-size: 1rem;
             color: #555;
             line-height: 1.7;
             letter-spacing: -0.01em;
+        }
+
+        .service-inline-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 1rem 1.4rem;
+            min-height: 38px;
+            padding: 0.45rem 0.85rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 123, 255, 0.45);
+            color: #05538a;
+            background: rgba(0, 123, 255, 0.08);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .service-inline-link:hover {
+            transform: translateY(-1px);
+            border-color: rgba(0, 123, 255, 0.75);
+            background: rgba(0, 123, 255, 0.18);
         }
 
         .about-list {
@@ -1685,6 +1809,13 @@
         }
 
         .contact-item p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            letter-spacing: -0.01em;
+        }
+
+        .contact-item address {
+            font-style: normal;
             color: rgba(255, 255, 255, 0.9);
             line-height: 1.7;
             letter-spacing: -0.01em;
@@ -2635,6 +2766,7 @@
                 height: 120px;
             }
 
+            .service-card h2,
             .service-card h3 {
                 padding: 1rem 1rem 0 1rem;
                 font-size: 1rem;

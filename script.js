@@ -655,7 +655,7 @@ function buildSearchIndex() {
     });
 
     document.querySelectorAll('#services .service-card').forEach((card) => {
-        const title = (card.querySelector('h3')?.textContent || '').trim();
+        const title = (card.querySelector('h2, h3')?.textContent || '').trim();
         const description = (card.querySelector('p')?.textContent || '').trim();
         if (!title) return;
 
@@ -684,7 +684,7 @@ function buildSearchIndex() {
 
     document.querySelectorAll('#contact .contact-item').forEach((item) => {
         const title = (item.querySelector('h3')?.textContent || '').trim();
-        const description = (item.querySelector('p')?.textContent || '').trim().replace(/\s+/g, ' ');
+        const description = (item.querySelector('p, address')?.textContent || '').trim().replace(/\s+/g, ' ');
         if (!title || !description) return;
 
         addItem({
